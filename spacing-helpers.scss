@@ -1,0 +1,29 @@
+// Sass loop that loops through desktop and mobile margins and paddings with positions(t,r,b,l)
+// Follows a base of 5 up to the counter (10) | Max = 50
+// You can change this counter if you need more  
+// example changing the count to 12 ( 5 * count ) ) | Max = 60
+$count: 15;
+$breakpoints: mobile desktop;
+$properties: padding margin;
+$position: top bottom left right;
+$base: 5;
+@for $i from 0 through $count{
+    @each $val in $breakpoints{
+        @each $prop in $properties{
+            @each $pos in $position{
+                .#{$val}-#{$prop}-#{$pos}-#{$i * $base}{
+                    @if ($val == mobile){
+                        @include bp('max','sm'){
+                            #{$prop}-#{$pos}:#{$i * $base}px !important;
+                        }
+                    }
+                    @if ($val == desktop){
+                        @include bp('min','md'){
+                            #{$prop}-#{$pos}:#{$i * $base}px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
